@@ -1,9 +1,7 @@
-LABEL authors="tiemonl"
-FROM gradle:7.6.1-jdk17-alpine
-USER bot
+FROM gradle:7.6.1-jdk17-alpine as builder
 WORKDIR /builder
 ADD . /builder
-RUN gradle build --stacktrace
+RUN gradle clean build
 
 FROM openjdk:17-jdk-alpine
 WORKDIR /app
