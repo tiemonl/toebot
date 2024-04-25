@@ -27,7 +27,7 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "17"
 }
 
 application {
@@ -45,8 +45,19 @@ dependencies {
     implementation(libs.kord.extensions.core)
 }
 
-tasks.jar {
-    manifest {
+tasks {
+    val fatJar = register<Jar>("fatJar") {
         archiveFileName.set("toebot.jar")
+        dependsOn.addAll(listOf("compileJava", "compileKotlin", "processResources"))
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        manifest { attributes(mapOf("Main-Class" to application.mainClass)) }
+        val sourcesMain = sourceSets.main.get()
+        val contents = configurations.runtimeClasspath.get()
+            .map { if (it.isDirectory) it else zipTree(it) } +
+                sourcesMain.output
+        from(contents)
+    }
+    build {
+        dependsOn(fatJar)
     }
 }
