@@ -6,6 +6,7 @@ import dev.kord.gateway.PrivilegedIntent
 @OptIn(PrivilegedIntent::class)
 suspend fun main(args: Array<String>) {
     val token = args.first()
+    println("My token is: $token")
     val bot = ExtensibleBot(token) {
         intents {
             +Intent.GuildMembers
