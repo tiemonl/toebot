@@ -7,4 +7,4 @@ FROM openjdk:17-jdk-alpine
 WORKDIR /app
 COPY --from=builder /builder/build/libs/toebot.jar .
 
-ENTRYPOINT ["java", "-jar", "toebot.jar", "$TOKEN"]
+ENTRYPOINT java -jar toebot.jar "$TOKEN"
