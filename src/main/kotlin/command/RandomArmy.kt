@@ -41,7 +41,7 @@ class RandomArmy : Extension() {
                     val spellVariation = arguments.spellVariation
 
                     val troops =
-                        format.decodeFromString<List<LocalTroop>>(getResourceAsText("src/main/resources/troops.json"))
+                    format.decodeFromString<List<LocalTroop>>(getResourceAsText("troops.json")!!)
                     val validTroops =
                         troops.filter { it.village == "home" && it.category == "troop" && it.subCategory == "troop" && it.minLevel < 4 }
 

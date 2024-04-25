@@ -1,7 +1,3 @@
 package utils
 
-import java.io.File
-
-fun getResourceAsText(path: String): String {
-    return File(path).readText(Charsets.UTF_8)
-}
+fun getResourceAsText(path: String) = object {}.javaClass.classLoader.getResource(path)?.readText()
